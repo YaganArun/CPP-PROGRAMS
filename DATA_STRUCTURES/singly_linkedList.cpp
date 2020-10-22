@@ -25,6 +25,9 @@ public:
     void push_back(int);         // Complexity for Insertion at the end :=> O(n)
     void push_front(int);        // Complexity for Insertion at beginning :=> O(1)
     void push_between(int, int); // Complexity for insertion in between :=> O(n)
+    void pop_front();            // Complexity to pop at front :=> O(1)
+    void pop_back();             // Complexity to pop at back :=> O(n)
+    void pop_between(int);       // Complexity to pop in between :=> O(n)
     void traverse();             // Complexity for traversing :=> O(n)
 };
 
@@ -86,6 +89,39 @@ void LinkedList::push_between(int data, int location)
     temp->next = new_node;
 }
 
+void LinkedList::pop_front()
+{
+    Node *current = this->HEAD;
+    this->HEAD = this->HEAD->next;
+    delete current;
+}
+
+void LinkedList::pop_back()
+{
+    Node *temp = this->HEAD;
+    Node *pre_ptr;
+    while (temp->next != NULL)
+    {
+        pre_ptr = temp;
+        temp = temp->next;
+    }
+    pre_ptr->next = NULL;
+    delete temp;
+}
+
+void LinkedList::pop_between(int location)
+{
+    Node *temp = this->HEAD;
+    Node *pre_ptr;
+    while (location--)
+    {
+        pre_ptr = temp;
+        temp = temp->next;
+    }
+    pre_ptr->next = pre_ptr->next->next;
+    delete temp;
+}
+
 void LinkedList::traverse()
 {
     Node *temp = this->HEAD;
@@ -99,6 +135,7 @@ void LinkedList::traverse()
 
 int main()
 {
+    // Insertion
     LinkedList LIST;
     LIST.push_back(10);
     LIST.push_back(20);
@@ -106,5 +143,11 @@ int main()
     LIST.push_back(100);
     LIST.push_front(300);
     LIST.push_between(1020, 3);
+    LIST.traverse();
+
+    // Deletion
+    LIST.pop_back();
+    LIST.pop_front();
+    LIST.pop_between(3);
     LIST.traverse();
 }
