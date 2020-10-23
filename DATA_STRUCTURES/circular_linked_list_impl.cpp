@@ -28,6 +28,7 @@ public:
     void push_between(int, int); // Complexity :=> O(n)
     void pop_back();             // Complexity :=> O(n-1) = O(n)
     void pop_front();            // Complexity :=> O(1)
+    void pop_at(int);            // Complexity :=> O(n)
     void traverse();             // Complexity :=> O(n)
 };
 
@@ -112,6 +113,19 @@ void CircularLinkedList::pop_front()
     delete node_del;
 }
 
+void CircularLinkedList::pop_at(int pos)
+{
+    Node *temp = this->HEAD;
+    Node *pre_ptr;
+    while (pos--)
+    {
+        pre_ptr = temp;
+        temp = temp->next;
+    }
+    pre_ptr->next = pre_ptr->next->next;
+    delete temp;
+}
+
 void CircularLinkedList::traverse()
 {
     Node *temp = this->HEAD;
@@ -140,5 +154,6 @@ int main()
     LIST.pop_back();
     LIST.pop_back();
     LIST.pop_front();
+    LIST.pop_at(1);
     LIST.traverse();
 }
