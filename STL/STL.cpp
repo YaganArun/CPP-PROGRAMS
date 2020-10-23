@@ -25,6 +25,11 @@ void explainPair()
     cout << p3.first << " " << p3.second;
 }
 
+void explainList()
+{
+    // ITERATORS :=> begin, end, rbegin, rend
+}
+
 int main()
 {
     vector<int> v;
